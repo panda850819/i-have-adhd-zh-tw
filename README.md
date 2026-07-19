@@ -11,6 +11,8 @@
 
 ## Install
 
+### Claude Code
+
 ```bash
 git clone https://github.com/ayghri/i-have-adhd ./i-have-adhd
 claude plugin marketplace add ./i-have-adhd
@@ -20,6 +22,15 @@ claude plugin install i-have-adhd@i-have-adhd
 In Claude Code: `/i-have-adhd`.
 
 To disable: `claude plugin disable i-have-adhd` or use `/plugin disable i-have-adhd` from within CC.
+
+### Codex
+
+```bash
+codex plugin marketplace add ayghri/i-have-adhd --ref main
+codex plugin add i-have-adhd@i-have-adhd
+```
+
+In Codex: use `$i-have-adhd` when you want the output style applied explicitly. The skill can also be invoked implicitly when Codex sees a task that benefits from action-first, ADHD-friendly output.
 
 More in [INSTALL.md](./INSTALL.md).
 
