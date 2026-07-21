@@ -10,17 +10,20 @@ from pathlib import Path
 
 
 PLUGIN_NAME = "i-have-adhd-zh-tw"
+MARKETPLACE_NAME = "panda850819"
 REPOSITORY = "https://github.com/panda850819/i-have-adhd-zh-tw"
 UPSTREAM = "https://github.com/ayghri/i-have-adhd"
-SKILL_PATH = Path("skills/i-have-adhd-zh-tw/SKILL.md")
+PLUGIN_ROOT = Path("plugins/i-have-adhd-zh-tw")
+SKILL_PATH = PLUGIN_ROOT / "skills/i-have-adhd-zh-tw/SKILL.md"
 CASES_PATH = Path("evals/cases.jsonl")
 REQUIRED_FILES = (
     Path(".agents/plugins/marketplace.json"),
     Path(".claude-plugin/marketplace.json"),
-    Path(".claude-plugin/plugin.json"),
-    Path(".codex-plugin/plugin.json"),
+    PLUGIN_ROOT / ".claude-plugin/plugin.json",
+    PLUGIN_ROOT / ".codex-plugin/plugin.json",
     SKILL_PATH,
-    Path("skills/i-have-adhd-zh-tw/agents/openai.yaml"),
+    PLUGIN_ROOT / "skills/i-have-adhd-zh-tw/agents/openai.yaml",
+    PLUGIN_ROOT / "LICENSE",
     Path("README.md"),
     Path("INSTALL.md"),
     CASES_PATH,
@@ -125,24 +128,24 @@ def check_repository(root: Path) -> list[str]:
             errors.append(f"{SKILL_PATH}: description missing always-on signal: {phrase}")
 
     agents = load_json(root / ".agents/plugins/marketplace.json", errors)
-    if agents.get("name") != PLUGIN_NAME:
+    if agents.get("name") != MARKETPLACE_NAME:
         errors.append(".agents marketplace name mismatch")
     agents_plugins = agents.get("plugins", [])
     if not agents_plugins or agents_plugins[0].get("name") != PLUGIN_NAME:
         errors.append(".agents plugin name mismatch")
     else:
         source = agents_plugins[0].get("source", {})
-        if source != {"source": "local", "path": "."}:
-            errors.append(".agents plugin must resolve from the marketplace root")
+        if source != {"source": "local", "path": "./plugins/i-have-adhd-zh-tw"}:
+            errors.append(".agents plugin must resolve from its marketplace subdirectory")
 
     claude_market = load_json(root / ".claude-plugin/marketplace.json", errors)
-    if claude_market.get("name") != PLUGIN_NAME:
+    if claude_market.get("name") != MARKETPLACE_NAME:
         errors.append("Claude marketplace name mismatch")
     claude_plugins = claude_market.get("plugins", [])
     if not claude_plugins or claude_plugins[0].get("name") != PLUGIN_NAME:
         errors.append("Claude marketplace plugin name mismatch")
 
-    claude_plugin = load_json(root / ".claude-plugin/plugin.json", errors)
+    claude_plugin = load_json(root / PLUGIN_ROOT / ".claude-plugin/plugin.json", errors)
     if claude_plugin.get("name") != PLUGIN_NAME:
         errors.append("Claude plugin name mismatch")
     if claude_plugin.get("version") != "0.1.1":
@@ -150,7 +153,7 @@ def check_repository(root: Path) -> list[str]:
     if claude_plugin.get("author", {}).get("url") != "https://github.com/panda850819":
         errors.append("Claude plugin author mismatch")
 
-    codex = load_json(root / ".codex-plugin/plugin.json", errors)
+    codex = load_json(root / PLUGIN_ROOT / ".codex-plugin/plugin.json", errors)
     if codex.get("name") != PLUGIN_NAME:
         errors.append("Codex plugin name mismatch")
     if codex.get("version") != "0.1.1":
@@ -160,7 +163,7 @@ def check_repository(root: Path) -> list[str]:
     if codex.get("skills") != "./skills/":
         errors.append("Codex skills path mismatch")
 
-    openai_yaml = (root / "skills/i-have-adhd-zh-tw/agents/openai.yaml").read_text(encoding="utf-8")
+    openai_yaml = (root / PLUGIN_ROOT / "skills/i-have-adhd-zh-tw/agents/openai.yaml").read_text(encoding="utf-8")
     if "allow_implicit_invocation: true" not in openai_yaml:
         errors.append("OpenAI metadata must allow implicit invocation")
     if "$i-have-adhd-zh-tw" not in openai_yaml:

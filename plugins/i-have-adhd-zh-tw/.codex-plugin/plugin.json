@@ -34,8 +34,6 @@
       "Respond in natural Taiwan Traditional Chinese with the answer or completed result first.",
       "Remove filler, translationese, redundant recaps, and avoidable delegation while preserving necessary detail and safety."
     ],
-    "brandColor": "#2563EB",
-    "composerIcon": "./logo.png",
-    "logo": "./logo.png"
+    "brandColor": "#2563EB"
   }
 }

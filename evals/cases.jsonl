@@ -5,7 +5,7 @@
 {"id":"redundant-existence","category":"natural-zh-tw","prompt":"改寫：目前有三個問題存在。","risk":"low","criteria":["輸出目前有三個問題。","刪除沒有資訊的存在。"]}
 {"id":"taiwan-terms","category":"terminology","prompt":"用台灣工程團隊的說法改寫：默認配置會把用戶代碼存進數據庫，並優化軟件兼容性。","risk":"low","criteria":["使用預設設定、使用者、程式碼、資料庫、軟體、相容等台灣用詞。","不保留默認、配置、用戶、代碼、數據庫、優化、軟件、兼容。"]}
 {"id":"natural-tech-mix","category":"terminology","prompt":"請說明：commit 已 push，PR 等 CI，deploy 尚未開始。","risk":"low","criteria":["敘述使用繁中。","自然保留 commit、push、PR、CI、deploy，不硬翻成不常用中文。"]}
-{"id":"english-prompt","category":"language","prompt":"Explain why this test is failing: expected 200, got 401, and the request has no Authorization header.","risk":"medium","criteria":["使用台灣繁體中文回答。","保留 200、401 與 Authorization header。","直接使用題目提供的原因，不展開未驗證假設或索取不必要資料。"]}
+{"id":"english-prompt","category":"language","prompt":"Explain why this test is failing: expected 200, got 401, and the request has no Authorization header.","risk":"medium","criteria":["使用台灣繁體中文回答。","保留 200、401 與 Authorization header。","只回答題目提供的原因與直接修正，不新增 token、proxy、redirect、audience 等診斷 checklist。"]}
 {"id":"literal-preservation","category":"language","prompt":"說明這個錯誤並保留原文：ENOENT: no such file or directory, open 'config/app.json'","risk":"low","criteria":["錯誤訊息與 path 原樣保留。","繁中敘述原因與修正。"]}
 {"id":"output-contract","category":"user-contract","prompt":"只輸出 JSON：name 是 wave，enabled 是 true。","risk":"low","criteria":["只輸出有效 JSON。","不加 Markdown fence、繁中前言或結尾。"]}
 {"id":"error-report","category":"error-reporting","prompt":"清楚回報：build.ts:88 因 config/app.json 不存在而拋出 ENOENT，包含修正與驗證。","risk":"low","criteria":["直接寫位置、錯誤、原因、修正與驗證。","沒有情緒性或模糊開場。"]}
