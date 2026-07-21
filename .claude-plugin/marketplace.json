@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "panda850819",
-  "description": "Shape every Claude Code response as natural Taiwan Traditional Chinese with answer-first, low-friction structure.",
+  "description": "Shape every Claude Code response as Taiwan Traditional Chinese with answer-first, low-friction structure.",
   "owner": {
     "name": "Panda"
   },

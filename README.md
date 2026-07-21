@@ -2,12 +2,12 @@
   <img src="./logo.png" alt="i-have-adhd-zh-tw" width="140" />
 </p>
 <p align="center">
-  <strong>自然台灣繁中。答案先行。少一點廢話，多一點完成。</strong>
+  <strong>答案先行。少一點廢話，多一點完成。</strong>
 </p>
 
 # i-have-adhd-zh-tw
 
-給 Claude Code、Codex 與 Cursor 使用的公開 skill。它預設以自然的台灣繁體中文回覆，減少空泛開場、晶晶體、中國用語、重複摘要與不必要的客套結尾，同時保留正確性、安全性、必要細節與 agent autonomy。
+給 Claude Code、Codex 與 Cursor 使用的公開 skill。它預設以台灣繁體中文回覆，減少空泛開場、晶晶體、中國用語、重複摘要與不必要的客套結尾，同時保留正確性、安全性、必要細節與 agent autonomy。
 
 這個 skill 適合希望資訊容易開始、快速掃讀、可以直接行動的人；使用它不代表，也不能證明任何人有 ADHD。
 
@@ -39,13 +39,30 @@ codex plugin add i-have-adhd-zh-tw@panda850819
 
 ## 它會改變什麼
 
+<table>
+<tr>
+<td width="50%">
+
 ### 修改前
 
-> 這是一個很好的問題。基於你目前所提供的資訊，我們可以針對登入流程的部分進行進一步的分析。首先，你可能需要檢查相關的配置，然後再考慮是否需要對代碼進行調整。希望這對你有幫助。
+> 這是一個很好的問題！讓我來想一下。你的 auth flow 有幾個環節：middleware、token 驗證，還有 cookie 處理。從 `src/auth.ts` 來看，`verifyToken` 這個 function（大約在 42-58 行）似乎正在使用比較舊的 `jsonwebtoken` API。一種可能的做法是針對套件進行更新，然後再對該 function 進行重寫。在完成修改之後，你會希望跑一下 auth 相關的測試，以確保沒有東西被破壞。另外順帶一提，你或許也可以整體性地檢視一下相依套件的版本。希望這對你有幫助！想更深入了解再告訴我。
+
+</td>
+
+<td width="50%">
 
 ### 修改後
 
-> 登入失敗是因為 request 沒有 `Authorization` header。已在 `src/auth.ts:42` 補上 header；`auth.spec.ts` 通過。
+> 已跑 `npm install jsonwebtoken@latest`，並改好 `src/auth.ts:42`。
+>
+> 1. `verifyToken`（42-58 行）換成新版 `jsonwebtoken` API
+> 2. `npm test -- auth.spec.ts` 通過，12 passed
+>
+> 下一步：`src/session.ts` 也呼叫了 `verifyToken`，還沒改。
+
+</td>
+</tr>
+</table>
 
 ## 核心原則
 
