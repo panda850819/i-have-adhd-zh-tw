@@ -1,102 +1,63 @@
 <p align="center">
-  <img src="./logo.png" alt="i-have-adhd" width="140" />
+  <img src="./logo.png" alt="i-have-adhd-zh-tw" width="140" />
 </p>
 <p align="center">
-  <strong align="center">ADHD-friendly outputs. No ADHD diagnosis needed!</strong>
-</p>
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/ayghri/i-have-adhd?style=flat" alt="License"></a>
+  <strong>自然台灣繁中。答案先行。少一點廢話，多一點完成。</strong>
 </p>
 
+# i-have-adhd-zh-tw
 
-## Install
+給 Claude Code、Codex 與 Cursor 使用的公開 skill。它預設以自然的台灣繁體中文回覆，減少空泛開場、晶晶體、中國用語、重複摘要與不必要的客套結尾，同時保留正確性、安全性、必要細節與 agent autonomy。
 
-<details>
-<summary><strong>Claude Code</strong></summary>
+這個 skill 適合希望資訊容易開始、快速掃讀、可以直接行動的人；使用它不代表，也不能證明任何人有 ADHD。
 
-```bash
-claude plugin marketplace add ayghri/i-have-adhd
-claude plugin install i-have-adhd@i-have-adhd
-```
+## 安裝
 
-Then type `/i-have-adhd`. No local clone needed — Claude Code fetches the repo and keeps it updated.
-
-</details>
-
-<details>
-<summary><strong>Codex</strong></summary>
+### Claude Code
 
 ```bash
-codex plugin marketplace add ayghri/i-have-adhd --ref main
-codex plugin add i-have-adhd@i-have-adhd
+claude plugin marketplace add panda850819/i-have-adhd-zh-tw
+claude plugin install i-have-adhd-zh-tw@i-have-adhd-zh-tw
 ```
 
-Then type `$i-have-adhd` to apply the output style explicitly. The skill can also be invoked implicitly when Codex sees a task that benefits from it.
+### Codex
 
-</details>
+```bash
+codex plugin marketplace add panda850819/i-have-adhd-zh-tw --ref main
+codex plugin add i-have-adhd-zh-tw@i-have-adhd-zh-tw
+```
 
-Install instructions for other coding agents live in [INSTALL.md](./INSTALL.md).
+詳細安裝、更新與移除方式見 [INSTALL.md](./INSTALL.md)。
 
-## What it does
+## 它會改變什麼
 
-A skill for Claude Code, Codex, and Cursor that stops burying the answer. Action first. Steps numbered. No "Hope this helps!"
+### 修改前
 
+> 這是一個很好的問題。基於你目前所提供的資訊，我們可以針對登入流程的部分進行進一步的分析。首先，你可能需要檢查相關的配置，然後再考慮是否需要對代碼進行調整。希望這對你有幫助。
 
-## What changes
+### 修改後
 
+> 登入失敗是因為 request 沒有 `Authorization` header。已在 `src/auth.ts:42` 補上 header；`auth.spec.ts` 通過。
 
-<table>
-<tr>
-<td width="50%">
+## 核心原則
 
-## Before
+1. 第一段直接給答案、完成結果或必要下一步。
+2. 敘述使用台灣繁中；code、command、path、API 與錯誤訊息保持原樣。
+3. 使用主動、自然的句子，刪除翻譯腔與空殼詞。
+4. Agent 能安全完成的工作直接完成，不丟回給使用者。
+5. 簡短不犧牲必要細節、安全、rollback 或明確 output contract。
 
-> Great question! Let me think about this. Your auth flow has a few moving pieces: the middleware, the token verification, and the cookie handling. Looking at `src/auth.ts`, the `verifyToken` function (around lines 42-58) seems to be using an older `jsonwebtoken` API. One approach would be to update the package and rewrite that function. After making the change, you'd want to run the auth tests to confirm nothing breaks. By the way, you might also want to look at your dependency versions overall. Hope this helps! Let me know if you want to dig deeper.
+完整規則見 [SKILL.md](./skills/i-have-adhd-zh-tw/SKILL.md)。
 
-</td>
+## 驗證
 
-<td width="50%">
+```bash
+python3 scripts/check_repo.py
+python3 -m unittest discover -s tests -v
+```
 
-## After
+案例涵蓋直接回答、agent autonomy、台灣用詞、晶晶體、technical literals、錯誤回報、安全確認、詳解、指定格式與日常對話。詳見 [evals/cases.jsonl](./evals/cases.jsonl) 與 [evals/rubric.md](./evals/rubric.md)。
 
-> Run `npm install jsonwebtoken@latest`, then edit `src/auth.ts:42`.
->
-> 1. Open `src/auth.ts`
-> 2. Replace `verifyToken` (lines 42–58) with the snippet below
-> 3. Run `npm test -- auth.spec.ts`
->
-> Next: paste the first failing line if any test fails.
+## 上游
 
-</td>
-</tr>
-</table>
-
-
-## The rules
-
-10 rules. Full text in [SKILL.md](./skills/i-have-adhd/SKILL.md).
-
-1. Lead with the next action.
-2. Number multi-step tasks.
-3. End with one concrete next step.
-4. Suppress tangents.
-5. Restate state every turn.
-6. Specific time estimates (minutes, not "a bit").
-7. Make wins visible.
-8. Matter-of-fact errors.
-9. Cap lists at 5 items.
-10. No preamble. No recap. No closers.
-
-## Tune it
-
-Fork, edit `skills/i-have-adhd/SKILL.md`, install your fork: `claude plugin marketplace add <your-username>/i-have-adhd`. Re-invoke `/i-have-adhd`.
-
-## Credits
-
-Loosely based on *The Adult ADHD Tool Kit* by J. Russell Ramsay and Anthony L. Rostain. Adapted for how an LLM should respond, not how a human should organize their day.
-
-## License
-
-MIT.
-
-Star ⭐ if it saved you one scroll past one "Great question!"
+本專案 fork 自 [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd)，沿用 MIT License 並保留原作者 attribution。繁中版本獨立維護；上游變更只在人工審查後挑選，不自動合併。

@@ -1,14 +1,14 @@
 {
-  "name": "i-have-adhd",
+  "name": "i-have-adhd-zh-tw",
   "interface": {
-    "displayName": "I Have ADHD"
+    "displayName": "I Have ADHD zh-TW"
   },
   "plugins": [
     {
-      "name": "i-have-adhd",
+      "name": "i-have-adhd-zh-tw",
       "source": {
         "source": "url",
-        "url": "https://github.com/ayghri/i-have-adhd.git",
+        "url": "https://github.com/panda850819/i-have-adhd-zh-tw.git",
         "ref": "main"
       },
       "policy": {

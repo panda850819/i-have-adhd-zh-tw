@@ -1,0 +1,7 @@
+interface:
+  display_name: "I Have ADHD zh-TW"
+  short_description: "自然台灣繁中，答案先行"
+  default_prompt: "Use $i-have-adhd-zh-tw to respond in natural Taiwan Traditional Chinese with the answer or completed result first."
+
+policy:
+  allow_implicit_invocation: true

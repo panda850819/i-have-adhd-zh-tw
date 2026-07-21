@@ -1,16 +1,18 @@
 {
-  "name": "i-have-adhd",
+  "name": "i-have-adhd-zh-tw",
   "version": "0.1.0",
-  "description": "ADHD-friendly output shaping for Codex: action first, numbered steps, no tangents, and visible progress.",
+  "description": "Always-on ADHD-friendly Taiwan Traditional Chinese output shaping for Codex.",
   "author": {
-    "name": "Ayoub G.",
-    "url": "https://github.com/ayghri"
+    "name": "Panda",
+    "url": "https://github.com/panda850819"
   },
-  "homepage": "https://github.com/ayghri/i-have-adhd",
-  "repository": "https://github.com/ayghri/i-have-adhd",
+  "homepage": "https://github.com/panda850819/i-have-adhd-zh-tw",
+  "repository": "https://github.com/panda850819/i-have-adhd-zh-tw",
   "license": "MIT",
   "keywords": [
     "adhd",
+    "zh-tw",
+    "traditional-chinese",
     "output-style",
     "productivity",
     "skills",
@@ -18,19 +20,19 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "I Have ADHD",
-    "shortDescription": "Action-first output for ADHD readers",
-    "longDescription": "Shape Codex responses for an ADHD reader by leading with the next action, numbering multi-step work, suppressing tangents, restating state, and making progress visible.",
-    "developerName": "Ayoub G.",
+    "displayName": "I Have ADHD zh-TW",
+    "shortDescription": "自然台灣繁中，答案先行",
+    "longDescription": "讓 Codex 預設以自然台灣繁中回覆，先給答案或結果，減少空話與翻譯腔，同時保留必要細節、安全性與 agent autonomy。",
+    "developerName": "Panda",
     "category": "Productivity",
     "capabilities": [
       "Instructions"
     ],
-    "websiteURL": "https://github.com/ayghri/i-have-adhd",
+    "websiteURL": "https://github.com/panda850819/i-have-adhd-zh-tw",
     "defaultPrompt": [
-      "Use i-have-adhd for this task.",
-      "Make this answer action-first and easy to execute.",
-      "Review this response for ADHD-friendly structure."
+      "Use i-have-adhd-zh-tw for every response.",
+      "Respond in natural Taiwan Traditional Chinese with the answer or completed result first.",
+      "Remove filler, translationese, redundant recaps, and avoidable delegation while preserving necessary detail and safety."
     ],
     "brandColor": "#2563EB",
     "composerIcon": "./logo.png",
