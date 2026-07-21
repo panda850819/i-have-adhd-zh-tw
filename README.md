@@ -25,14 +25,14 @@
 
 ```bash
 claude plugin marketplace add panda850819/i-have-adhd-zh-tw
-claude plugin install i-have-adhd-zh-tw@i-have-adhd-zh-tw
+claude plugin install i-have-adhd-zh-tw@panda850819
 ```
 
 ### Codex
 
 ```bash
 codex plugin marketplace add panda850819/i-have-adhd-zh-tw --ref main
-codex plugin add i-have-adhd-zh-tw@i-have-adhd-zh-tw
+codex plugin add i-have-adhd-zh-tw@panda850819
 ```
 
 詳細安裝、更新與移除方式見 [INSTALL.md](./INSTALL.md)。
@@ -55,7 +55,7 @@ codex plugin add i-have-adhd-zh-tw@i-have-adhd-zh-tw
 4. Agent 能安全完成的工作直接完成，不丟回給使用者。
 5. 簡短不犧牲必要細節、安全、rollback 或明確 output contract。
 
-完整規則見 [SKILL.md](./skills/i-have-adhd-zh-tw/SKILL.md)。
+完整規則見 [SKILL.md](./plugins/i-have-adhd-zh-tw/skills/i-have-adhd-zh-tw/SKILL.md)。
 
 ## 驗證
 

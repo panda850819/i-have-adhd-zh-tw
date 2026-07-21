@@ -4,7 +4,7 @@ Date: 2026-07-21
 
 ## Artifact
 
-- Skill: `skills/i-have-adhd-zh-tw/SKILL.md`
+- Skill: `plugins/i-have-adhd-zh-tw/skills/i-have-adhd-zh-tw/SKILL.md`
 - Claude Code: `2.1.216`
 - Codex CLI: `0.144.1`
 - Isolation: no session persistence, tools disabled or read-only sandbox, user config ignored for Codex
@@ -31,6 +31,7 @@ The first Claude English error response expanded several unverified alternative 
 
 ## Gaps
 
-- Implicit invocation eligibility was validated from manifests; deterministic activation on every host still requires a fresh installed-plugin session or the documented host-level always-on line.
+- Installed-plugin sessions loaded the skill successfully in Claude Code and Codex. Explicit invocation is `/i-have-adhd-zh-tw:i-have-adhd-zh-tw` in Claude Code and `$i-have-adhd-zh-tw` in Codex.
+- Implicit routing remains host-dependent. The always-on description carries the core rules, while deterministic full-skill activation still requires the documented host-level instruction.
 - Naturalness remains model-judged. The repository validator proves structure and case integrity, not prose quality.
 - No public performance claim is supported by these three cases.

@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "i-have-adhd-zh-tw",
+  "name": "panda850819",
   "description": "Shape every Claude Code response as natural Taiwan Traditional Chinese with answer-first, low-friction structure.",
   "owner": {
     "name": "Panda"
@@ -9,7 +9,7 @@
     {
       "name": "i-have-adhd-zh-tw",
       "description": "Always-on, ADHD-friendly Taiwan Traditional Chinese output shaping.",
-      "source": "./",
+      "source": "./plugins/i-have-adhd-zh-tw",
       "category": "productivity"
     }
   ]

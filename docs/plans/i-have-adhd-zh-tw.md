@@ -10,14 +10,14 @@ brief: docs/briefs/2026-07-21-i-have-adhd-zh-tw.md
 ### T1: Establish independent plugin identity
 
 - scope: manifests, skill directory, inherited workflows
-- acceptance: `jq -e '.name == "i-have-adhd-zh-tw"' .agents/plugins/marketplace.json .claude-plugin/plugin.json .codex-plugin/plugin.json && test -f skills/i-have-adhd-zh-tw/SKILL.md && test ! -f skills/i-have-adhd/SKILL.md`
+- acceptance: `jq -e '.name == "panda850819"' .agents/plugins/marketplace.json && jq -e '.name == "i-have-adhd-zh-tw"' plugins/i-have-adhd-zh-tw/.claude-plugin/plugin.json plugins/i-have-adhd-zh-tw/.codex-plugin/plugin.json && test -f plugins/i-have-adhd-zh-tw/skills/i-have-adhd-zh-tw/SKILL.md && test ! -f skills/i-have-adhd/SKILL.md`
 - depends-on: none
 - status: todo
 
 ### T2: Author native Taiwan Traditional Chinese behavior
 
-- scope: `skills/i-have-adhd-zh-tw/SKILL.md`
-- acceptance: `rg -n '每一則回覆|台灣繁體中文|不把 agent 的工作丟回給使用者|發送前檢查' skills/i-have-adhd-zh-tw/SKILL.md`
+- scope: `plugins/i-have-adhd-zh-tw/skills/i-have-adhd-zh-tw/SKILL.md`
+- acceptance: `rg -n '每一則回覆|台灣繁體中文|不把 agent 的工作丟回給使用者|發送前檢查' plugins/i-have-adhd-zh-tw/skills/i-have-adhd-zh-tw/SKILL.md`
 - depends-on: T1
 - status: todo
 

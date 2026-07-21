@@ -4,7 +4,7 @@
 
 ```bash
 claude plugin marketplace add panda850819/i-have-adhd-zh-tw
-claude plugin install i-have-adhd-zh-tw@i-have-adhd-zh-tw
+claude plugin install i-have-adhd-zh-tw@panda850819
 ```
 
 驗證：
@@ -15,11 +15,17 @@ claude plugin list
 
 看到 `i-have-adhd-zh-tw (enabled)` 即完成。開新的 Claude Code session，讓 plugin 與 skill index 重新載入。
 
+明確套用一次：
+
+```text
+/i-have-adhd-zh-tw:i-have-adhd-zh-tw
+```
+
 ## Codex
 
 ```bash
 codex plugin marketplace add panda850819/i-have-adhd-zh-tw --ref main
-codex plugin add i-have-adhd-zh-tw@i-have-adhd-zh-tw
+codex plugin add i-have-adhd-zh-tw@panda850819
 ```
 
 驗證：
@@ -29,6 +35,12 @@ codex plugin list
 ```
 
 看到 `i-have-adhd-zh-tw` 且狀態為 enabled 即完成。開新的 Codex task，讓 plugin 與 skill index 重新載入。
+
+明確套用一次：
+
+```text
+$i-have-adhd-zh-tw
+```
 
 ## Cursor
 
@@ -65,16 +77,16 @@ Always use the `i-have-adhd-zh-tw` skill for every response.
 Claude Code：
 
 ```bash
-claude plugin marketplace update i-have-adhd-zh-tw
-claude plugin update i-have-adhd-zh-tw@i-have-adhd-zh-tw
+claude plugin marketplace update panda850819
+claude plugin update i-have-adhd-zh-tw@panda850819
 ```
 
 Codex：
 
 ```bash
-codex plugin marketplace upgrade i-have-adhd-zh-tw
+codex plugin marketplace upgrade panda850819
 codex plugin remove i-have-adhd-zh-tw
-codex plugin add i-have-adhd-zh-tw@i-have-adhd-zh-tw
+codex plugin add i-have-adhd-zh-tw@panda850819
 ```
 
 ## 移除
@@ -82,15 +94,15 @@ codex plugin add i-have-adhd-zh-tw@i-have-adhd-zh-tw
 Claude Code：
 
 ```bash
-claude plugin uninstall i-have-adhd-zh-tw
-claude plugin marketplace remove i-have-adhd-zh-tw
+claude plugin uninstall i-have-adhd-zh-tw@panda850819
+claude plugin marketplace remove panda850819
 ```
 
 Codex：
 
 ```bash
 codex plugin remove i-have-adhd-zh-tw
-codex plugin marketplace remove i-have-adhd-zh-tw
+codex plugin marketplace remove panda850819
 ```
 
 Cursor：
@@ -109,4 +121,4 @@ npx skills remove i-have-adhd-zh-tw -g
 
 ### 還是出現英文或翻譯腔
 
-先確認目前 task 載入的 skill path 包含 `skills/i-have-adhd-zh-tw/SKILL.md`。若 host 的 implicit routing 沒有每回合觸發，使用上方 deterministic always-on 設定。
+先確認目前 task 載入的 skill path 包含 `plugins/i-have-adhd-zh-tw/skills/i-have-adhd-zh-tw/SKILL.md`。若 host 的 implicit routing 沒有每回合觸發，使用上方 deterministic always-on 設定。

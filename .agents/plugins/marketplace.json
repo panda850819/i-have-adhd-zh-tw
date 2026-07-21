@@ -1,5 +1,5 @@
 {
-  "name": "i-have-adhd-zh-tw",
+  "name": "panda850819",
   "interface": {
     "displayName": "I Have ADHD zh-TW"
   },
@@ -8,7 +8,7 @@
       "name": "i-have-adhd-zh-tw",
       "source": {
         "source": "local",
-        "path": "."
+        "path": "./plugins/i-have-adhd-zh-tw"
       },
       "policy": {
         "installation": "AVAILABLE",
