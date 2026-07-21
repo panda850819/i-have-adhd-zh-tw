@@ -148,7 +148,7 @@ def check_repository(root: Path) -> list[str]:
     claude_plugin = load_json(root / PLUGIN_ROOT / ".claude-plugin/plugin.json", errors)
     if claude_plugin.get("name") != PLUGIN_NAME:
         errors.append("Claude plugin name mismatch")
-    if claude_plugin.get("version") != "0.1.1":
+    if claude_plugin.get("version") != "0.1.2":
         errors.append("Claude plugin version mismatch")
     if claude_plugin.get("author", {}).get("url") != "https://github.com/panda850819":
         errors.append("Claude plugin author mismatch")
@@ -156,7 +156,7 @@ def check_repository(root: Path) -> list[str]:
     codex = load_json(root / PLUGIN_ROOT / ".codex-plugin/plugin.json", errors)
     if codex.get("name") != PLUGIN_NAME:
         errors.append("Codex plugin name mismatch")
-    if codex.get("version") != "0.1.1":
+    if codex.get("version") != "0.1.2":
         errors.append("Codex plugin version mismatch")
     if codex.get("repository") != REPOSITORY:
         errors.append("Codex repository URL mismatch")
@@ -196,7 +196,15 @@ def check_repository(root: Path) -> list[str]:
     errors.extend(case_errors)
     if len(cases) < 15:
         errors.append(f"{CASES_PATH}: expected at least 15 cases, found {len(cases)}")
-    required_categories = {"agent-autonomy", "natural-zh-tw", "terminology", "safety", "filler"}
+    required_categories = {
+        "agent-autonomy",
+        "natural-zh-tw",
+        "terminology",
+        "safety",
+        "filler",
+        "banned-phrases",
+        "calibration",
+    }
     missing_categories = sorted(required_categories - {row.get("category") for row in cases})
     if missing_categories:
         errors.append(f"{CASES_PATH}: missing categories: {', '.join(missing_categories)}")
