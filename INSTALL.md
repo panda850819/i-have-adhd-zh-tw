@@ -1,182 +1,112 @@
-# Install i-have-adhd
+# 安裝 i-have-adhd-zh-tw
 
-One skill. Installable in Claude Code, Codex, and Cursor.
-
-## TL;DR
-
-### Claude Code
+## Claude Code
 
 ```bash
-claude plugin marketplace add ayghri/i-have-adhd
-claude plugin install i-have-adhd@i-have-adhd
+claude plugin marketplace add panda850819/i-have-adhd-zh-tw
+claude plugin install i-have-adhd-zh-tw@i-have-adhd-zh-tw
 ```
 
-No local clone needed — Claude Code fetches the repo and keeps it updated.
-
-Open Claude Code, type `/i-have-adhd`.
-
-To disable: `claude plugin disable i-have-adhd` (or `/plugin disable i-have-adhd` from within Claude Code). Re-enable later with `enable` instead of `disable`.
-
-### Codex
-
-```bash
-codex plugin marketplace add ayghri/i-have-adhd --ref main
-codex plugin add i-have-adhd@i-have-adhd
-```
-
-In Codex, type `$i-have-adhd` to request the output style explicitly.
-
-### Cursor
-
-Project (this workspace):
-
-```bash
-npx skills add ayghri/i-have-adhd
-```
-
-Global (all Cursor projects):
-
-```bash
-npx skills add ayghri/i-have-adhd -g
-```
-
-Cursor-only (skip other agents):
-
-```bash
-npx skills add ayghri/i-have-adhd -a cursor -y
-```
-
-Open a new Cursor Agent chat, type `/i-have-adhd`.
-
-<details>
-<summary>Manual fallback (clone + copy)</summary>
-
-```bash
-mkdir -p ~/.cursor/skills
-cp -R /path/to/i-have-adhd/skills/i-have-adhd ~/.cursor/skills/
-```
-
-Replace `/path/to/i-have-adhd` with a local clone (`git clone https://github.com/ayghri/i-have-adhd`).
-
-Project-only without the CLI:
-
-```bash
-mkdir -p .cursor/skills
-cp -R /path/to/i-have-adhd/skills/i-have-adhd .cursor/skills/
-```
-
-</details>
-
-## Verify
-
-### Claude Code
+驗證：
 
 ```bash
 claude plugin list
 ```
 
-Look for `i-have-adhd  (enabled)`.
+看到 `i-have-adhd-zh-tw (enabled)` 即完成。開新的 Claude Code session，讓 plugin 與 skill index 重新載入。
 
-### Codex
+## Codex
+
+```bash
+codex plugin marketplace add panda850819/i-have-adhd-zh-tw --ref main
+codex plugin add i-have-adhd-zh-tw@i-have-adhd-zh-tw
+```
+
+驗證：
 
 ```bash
 codex plugin list
 ```
 
-Look for `i-have-adhd` in the configured `i-have-adhd` marketplace.
+看到 `i-have-adhd-zh-tw` 且狀態為 enabled 即完成。開新的 Codex task，讓 plugin 與 skill index 重新載入。
 
-### Cursor
+## Cursor
 
-```bash
-npx skills list
-# or, if installed globally:
-npx skills ls -g
-```
-
-Look for `i-have-adhd`. Or confirm the file exists: `ls ~/.cursor/skills/i-have-adhd/SKILL.md` (global) / `.cursor/skills/i-have-adhd/SKILL.md` (project).
-
-In a new Agent chat, type `/` and look for `i-have-adhd`.
-
-## Update
-
-### Claude Code
+安裝到目前 workspace：
 
 ```bash
-claude plugin marketplace update i-have-adhd
+npx skills add panda850819/i-have-adhd-zh-tw
 ```
 
-Next Claude Code session picks up changes.
-
-### Codex
+全域安裝：
 
 ```bash
-codex plugin marketplace upgrade i-have-adhd
-codex plugin remove i-have-adhd
-codex plugin add i-have-adhd@i-have-adhd
+npx skills add panda850819/i-have-adhd-zh-tw -g
 ```
 
-### Cursor
+安裝後開新的 Cursor Agent chat。
 
-```bash
-npx skills update i-have-adhd
-# or, if installed globally:
-npx skills update -g
-```
+## 自動套用
 
-Start a new Agent chat so Cursor re-reads the skill.
+plugin manifest 與 skill description 已允許 implicit invocation，並要求在每則回覆套用。實際是否每回合載入仍由 host 的 skill router 決定。
 
-## Uninstall
-
-### Claude Code
-
-```bash
-claude plugin uninstall i-have-adhd
-claude plugin marketplace remove i-have-adhd
-```
-
-### Codex
-
-```bash
-codex plugin remove i-have-adhd
-codex plugin marketplace remove i-have-adhd
-```
-
-### Cursor
-
-```bash
-npx skills remove i-have-adhd
-# or, if installed globally:
-npx skills remove i-have-adhd -g
-```
-
-Manual fallback: `rm -rf ~/.cursor/skills/i-have-adhd` or `.cursor/skills/i-have-adhd`.
-
-## Always-on (optional)
-
-### Claude Code
-
-To skip `/i-have-adhd` and apply the rules from message one, add to `~/.claude/CLAUDE.md`:
+需要 deterministic always-on 時，在 host 的全域 instruction file 加入：
 
 ```markdown
-## Output style
-
-Always follow the rules in the `i-have-adhd` skill: action-first, numbered steps, no preamble, no closers, state restated each turn.
+Always use the `i-have-adhd-zh-tw` skill for every response.
 ```
 
-### Cursor
+- Claude Code：`~/.claude/CLAUDE.md`
+- Codex：`~/.codex/AGENTS.md`
+- Cursor：Settings → Rules → User Rules
 
-Add the same text to **Cursor Settings → Rules → User Rules** (applies across projects), or put it in a project rule under `.cursor/rules/` with `alwaysApply: true`.
+## 更新
+
+Claude Code：
+
+```bash
+claude plugin marketplace update i-have-adhd-zh-tw
+claude plugin update i-have-adhd-zh-tw@i-have-adhd-zh-tw
+```
+
+Codex：
+
+```bash
+codex plugin marketplace upgrade i-have-adhd-zh-tw
+codex plugin remove i-have-adhd-zh-tw
+codex plugin add i-have-adhd-zh-tw@i-have-adhd-zh-tw
+```
+
+## 移除
+
+Claude Code：
+
+```bash
+claude plugin uninstall i-have-adhd-zh-tw
+claude plugin marketplace remove i-have-adhd-zh-tw
+```
+
+Codex：
+
+```bash
+codex plugin remove i-have-adhd-zh-tw
+codex plugin marketplace remove i-have-adhd-zh-tw
+```
+
+Cursor：
+
+```bash
+npx skills remove i-have-adhd-zh-tw
+# 全域安裝時：
+npx skills remove i-have-adhd-zh-tw -g
+```
 
 ## Troubleshooting
 
-**`/i-have-adhd` not in autocomplete.** Restart Claude Code. The plugin index is read at startup.
+### 找不到 skill
 
-**`claude plugin marketplace add` fails.** Use the `owner/repo` form: `claude plugin marketplace add ayghri/i-have-adhd`. If you point it at a local path instead, it must be the repo root (the directory containing `.claude-plugin/marketplace.json`), not `.claude-plugin/` itself.
+確認 plugin list 已出現 `i-have-adhd-zh-tw`，再開新的 session 或 task。Host 通常只在 session start 建立 skill index。
 
-**Skill activates but model still preambles.** Open a new session. Old context may carry. If it still drifts, tighten the rule wording in `skills/i-have-adhd/SKILL.md`, then re-invoke.
+### 還是出現英文或翻譯腔
 
-**Want different rules.** Fork the repo, edit `skills/i-have-adhd/SKILL.md`, then install your fork: `claude plugin marketplace add <your-username>/i-have-adhd`. (Or clone locally and `claude plugin marketplace add ./i-have-adhd`.) Re-invoke `/i-have-adhd` and the new rules apply.
-
-**Cursor: `/i-have-adhd` missing after install.** Start a new Agent chat. Skills are indexed at session start. Confirm `~/.cursor/skills/i-have-adhd/SKILL.md` exists and that the frontmatter `name` matches the folder name.
-
-**Cursor: skill present but replies still preamble.** Invoke `/i-have-adhd` once in the chat, or use the Always-on User Rule above. Skill auto-invocation is relevance-based; always-on User Rules are stricter.
+先確認目前 task 載入的 skill path 包含 `skills/i-have-adhd-zh-tw/SKILL.md`。若 host 的 implicit routing 沒有每回合觸發，使用上方 deterministic always-on 設定。

@@ -1,14 +1,14 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "i-have-adhd",
-  "description": "Shape Claude Code output for an ADHD reader. Action-first, numbered steps, no tangents.",
+  "name": "i-have-adhd-zh-tw",
+  "description": "Shape every Claude Code response as natural Taiwan Traditional Chinese with answer-first, low-friction structure.",
   "owner": {
-    "name": "Ayoub G."
+    "name": "Panda"
   },
   "plugins": [
     {
-      "name": "i-have-adhd",
-      "description": "Action-first, ADHD-friendly output shaping for Claude Code.",
+      "name": "i-have-adhd-zh-tw",
+      "description": "Always-on, ADHD-friendly Taiwan Traditional Chinese output shaping.",
       "source": "./",
       "category": "productivity"
     }
