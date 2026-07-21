@@ -39,13 +39,25 @@ codex plugin add i-have-adhd-zh-tw@panda850819
 
 ## 它會改變什麼
 
+<table>
+<tr>
+<td width="50%">
+
 ### 修改前
 
 > 這是一個很好的問題。基於你目前所提供的資訊，我們可以針對登入流程的部分進行進一步的分析。首先，你可能需要檢查相關的配置，然後再考慮是否需要對代碼進行調整。希望這對你有幫助。
 
+</td>
+
+<td width="50%">
+
 ### 修改後
 
 > 登入失敗是因為 request 沒有 `Authorization` header。已在 `src/auth.ts:42` 補上 header；`auth.spec.ts` 通過。
+
+</td>
+</tr>
+</table>
 
 ## 核心原則
 
