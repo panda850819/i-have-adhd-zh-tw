@@ -45,7 +45,7 @@ codex plugin add i-have-adhd-zh-tw@panda850819
 
 ### 修改前
 
-> 這是一個很好的問題。基於你目前所提供的資訊，我們可以針對登入流程的部分進行進一步的分析。首先，你可能需要檢查相關的配置，然後再考慮是否需要對代碼進行調整。希望這對你有幫助。
+> 這是一個很好的問題！讓我來想一下。你的 auth flow 有幾個環節：middleware、token 驗證，還有 cookie 處理。從 `src/auth.ts` 來看，`verifyToken` 這個 function（大約在 42-58 行）似乎正在使用比較舊的 `jsonwebtoken` API。一種可能的做法是針對套件進行更新，然後再對該 function 進行重寫。在完成修改之後，你會希望跑一下 auth 相關的測試，以確保沒有東西被破壞。另外順帶一提，你或許也可以整體性地檢視一下相依套件的版本。希望這對你有幫助！想更深入了解再告訴我。
 
 </td>
 
@@ -53,7 +53,12 @@ codex plugin add i-have-adhd-zh-tw@panda850819
 
 ### 修改後
 
-> 登入失敗是因為 request 沒有 `Authorization` header。已在 `src/auth.ts:42` 補上 header；`auth.spec.ts` 通過。
+> 已跑 `npm install jsonwebtoken@latest`，並改好 `src/auth.ts:42`。
+>
+> 1. `verifyToken`（42-58 行）換成新版 `jsonwebtoken` API
+> 2. `npm test -- auth.spec.ts` 通過，12 passed
+>
+> 下一步：`src/session.ts` 也呼叫了 `verifyToken`，還沒改。
 
 </td>
 </tr>
