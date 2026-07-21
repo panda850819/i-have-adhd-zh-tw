@@ -7,7 +7,7 @@
 
 # i-have-adhd-zh-tw
 
-給 Claude Code、Codex 與 Cursor 使用的公開 skill。它預設以自然的台灣繁體中文回覆，減少空泛開場、晶晶體、中國用語、重複摘要與不必要的客套結尾，同時保留正確性、安全性、必要細節與 agent autonomy。
+給 Claude Code、Codex 與 Cursor 使用的公開 skill。它預設以台灣繁體中文回覆，減少空泛開場、晶晶體、中國用語、重複摘要與不必要的客套結尾，同時保留正確性、安全性、必要細節與 agent autonomy。
 
 這個 skill 適合希望資訊容易開始、快速掃讀、可以直接行動的人；使用它不代表，也不能證明任何人有 ADHD。
 
