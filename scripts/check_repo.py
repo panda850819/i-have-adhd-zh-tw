@@ -11,6 +11,7 @@ from pathlib import Path
 
 PLUGIN_NAME = "i-have-adhd-zh-tw"
 REPOSITORY = "https://github.com/panda850819/i-have-adhd-zh-tw"
+UPSTREAM = "https://github.com/ayghri/i-have-adhd"
 SKILL_PATH = Path("skills/i-have-adhd-zh-tw/SKILL.md")
 CASES_PATH = Path("evals/cases.jsonl")
 REQUIRED_FILES = (
@@ -171,6 +172,18 @@ def check_repository(root: Path) -> list[str]:
             errors.append(f"{relative}: repository install target missing")
         if "i-have-adhd-zh-tw" not in text:
             errors.append(f"{relative}: plugin name missing")
+
+    readme = (root / "README.md").read_text(encoding="utf-8")
+    attribution_signals = {
+        UPSTREAM: "upstream repository",
+        "Ayoub Ghriss": "upstream author",
+        "非官方繁體中文衍生版本": "unofficial derivative status",
+        "不以此專案營利": "maintainer non-profit statement",
+        "不是額外的授權限制": "MIT non-restriction clarification",
+    }
+    for signal, label in attribution_signals.items():
+        if signal not in readme:
+            errors.append(f"README.md: missing {label}")
 
     for relative in root.rglob("*.md"):
         if ".git" not in relative.parts:

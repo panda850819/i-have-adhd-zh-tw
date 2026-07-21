@@ -11,6 +11,14 @@
 
 這個 skill 適合希望資訊容易開始、快速掃讀、可以直接行動的人；使用它不代表，也不能證明任何人有 ADHD。
 
+## 專案定位與上游
+
+本專案是英文版 [I have ADHD](https://github.com/ayghri/i-have-adhd) 的非官方繁體中文衍生版本。原始英文版由 Ayoub Ghriss 建立；本專案只維護繁體中文版本所需的翻譯、台灣用語在地化、相容性調整與驗證。原始專案的設計與成果歸功於上游作者及其貢獻者。
+
+本專案與上游作者沒有官方合作、授權代理或背書關係，也不以取代英文版或原作者成就為目的。上游變更只在人工審查後挑選，不會自動合併。
+
+本專案由維護者免費提供，目前不收費，也不以此專案營利。這是維護者的專案立場，不是額外的授權限制；本專案仍依 MIT License 發布，使用者保有 MIT License 授予的權利，包括商業使用。
+
 ## 安裝
 
 ### Claude Code
@@ -58,6 +66,8 @@ python3 -m unittest discover -s tests -v
 
 案例涵蓋直接回答、agent autonomy、台灣用詞、晶晶體、technical literals、錯誤回報、安全確認、詳解、指定格式與日常對話。詳見 [evals/cases.jsonl](./evals/cases.jsonl) 與 [evals/rubric.md](./evals/rubric.md)。
 
-## 上游
+## 授權與致謝
 
-本專案 fork 自 [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd)，沿用 MIT License 並保留原作者 attribution。繁中版本獨立維護；上游變更只在人工審查後挑選，不自動合併。
+本專案 fork 自 [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd)，沿用 [MIT License](./LICENSE)。`LICENSE` 完整保留原始著作權聲明 `Copyright (c) 2026 Ayoub Ghriss`；繁體中文版本的新增與修改由本專案維護者負責。
+
+上游 README 另註明，其概念參考 J. Russell Ramsay 與 Anthony L. Rostain 的 *The Adult ADHD Tool Kit*，並將內容調整為適合 LLM 回覆的形式。本專案保留這項致謝；該書及其內容不包含在本 repo 的 MIT 授權範圍內。
