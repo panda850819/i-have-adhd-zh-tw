@@ -148,7 +148,7 @@ def check_repository(root: Path) -> list[str]:
     claude_plugin = load_json(root / PLUGIN_ROOT / ".claude-plugin/plugin.json", errors)
     if claude_plugin.get("name") != PLUGIN_NAME:
         errors.append("Claude plugin name mismatch")
-    if claude_plugin.get("version") != "0.1.2":
+    if claude_plugin.get("version") != "0.1.3":
         errors.append("Claude plugin version mismatch")
     if claude_plugin.get("author", {}).get("url") != "https://github.com/panda850819":
         errors.append("Claude plugin author mismatch")
@@ -156,7 +156,7 @@ def check_repository(root: Path) -> list[str]:
     codex = load_json(root / PLUGIN_ROOT / ".codex-plugin/plugin.json", errors)
     if codex.get("name") != PLUGIN_NAME:
         errors.append("Codex plugin name mismatch")
-    if codex.get("version") != "0.1.2":
+    if codex.get("version") != "0.1.3":
         errors.append("Codex plugin version mismatch")
     if codex.get("repository") != REPOSITORY:
         errors.append("Codex repository URL mismatch")
