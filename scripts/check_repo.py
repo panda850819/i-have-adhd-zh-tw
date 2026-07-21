@@ -132,8 +132,8 @@ def check_repository(root: Path) -> list[str]:
         errors.append(".agents plugin name mismatch")
     else:
         source = agents_plugins[0].get("source", {})
-        if source.get("url") != f"{REPOSITORY}.git":
-            errors.append(".agents source URL mismatch")
+        if source != {"source": "local", "path": "."}:
+            errors.append(".agents plugin must resolve from the marketplace root")
 
     claude_market = load_json(root / ".claude-plugin/marketplace.json", errors)
     if claude_market.get("name") != PLUGIN_NAME:
@@ -145,7 +145,7 @@ def check_repository(root: Path) -> list[str]:
     claude_plugin = load_json(root / ".claude-plugin/plugin.json", errors)
     if claude_plugin.get("name") != PLUGIN_NAME:
         errors.append("Claude plugin name mismatch")
-    if claude_plugin.get("version") != "0.1.0":
+    if claude_plugin.get("version") != "0.1.1":
         errors.append("Claude plugin version mismatch")
     if claude_plugin.get("author", {}).get("url") != "https://github.com/panda850819":
         errors.append("Claude plugin author mismatch")
@@ -153,7 +153,7 @@ def check_repository(root: Path) -> list[str]:
     codex = load_json(root / ".codex-plugin/plugin.json", errors)
     if codex.get("name") != PLUGIN_NAME:
         errors.append("Codex plugin name mismatch")
-    if codex.get("version") != "0.1.0":
+    if codex.get("version") != "0.1.1":
         errors.append("Codex plugin version mismatch")
     if codex.get("repository") != REPOSITORY:
         errors.append("Codex repository URL mismatch")
