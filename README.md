@@ -2,7 +2,7 @@
   <img src="./logo.png" alt="i-have-adhd-zh-tw" width="140" />
 </p>
 <p align="center">
-  <strong>自然台灣繁中。答案先行。少一點廢話，多一點完成。</strong>
+  <strong>答案先行。少一點廢話，多一點完成。</strong>
 </p>
 
 # i-have-adhd-zh-tw
