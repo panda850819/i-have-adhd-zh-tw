@@ -21,8 +21,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "I Have ADHD zh-TW",
-    "shortDescription": "自然台灣繁中，答案先行",
-    "longDescription": "讓 Codex 預設以自然台灣繁中回覆，先給答案或結果，減少空話與翻譯腔，同時保留必要細節、安全性與 agent autonomy。",
+    "shortDescription": "台灣繁體中文，答案先行",
+    "longDescription": "讓 Codex 預設以台灣繁體中文回覆，先給答案或結果，減少空話與翻譯腔，同時保留必要細節、安全性與 agent autonomy。",
     "developerName": "Panda",
     "category": "Productivity",
     "capabilities": [
