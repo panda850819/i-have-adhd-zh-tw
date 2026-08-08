@@ -20,3 +20,21 @@ jobs:
         run: python3 scripts/check_repo.py
       - name: Run tests
         run: python3 -m unittest discover -s tests -v
+
+  claude-plugin-load:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+      - name: Load plugin from this checkout
+        run: |
+          export CLAUDE_CONFIG_DIR="$RUNNER_TEMP/claude-scratch"
+          mkdir -p "$CLAUDE_CONFIG_DIR"
+          claude plugin marketplace add "$GITHUB_WORKSPACE"
+          claude plugin install i-have-adhd-zh-tw@panda850819
+          claude plugin list | tee plugin-list.txt
+          grep -q "enabled" plugin-list.txt || {
+            echo "::error::plugin failed to load; see claude plugin list output above"
+            exit 1
+          }

@@ -13,6 +13,7 @@ PLUGIN_NAME = "i-have-adhd-zh-tw"
 MARKETPLACE_NAME = "panda850819"
 REPOSITORY = "https://github.com/panda850819/i-have-adhd-zh-tw"
 UPSTREAM = "https://github.com/ayghri/i-have-adhd"
+CLAUDE_MARKETPLACE_SCHEMA = "https://www.schemastore.org/claude-code-marketplace.json"
 PLUGIN_ROOT = Path("plugins/i-have-adhd-zh-tw")
 SKILL_PATH = PLUGIN_ROOT / "skills/i-have-adhd-zh-tw/SKILL.md"
 CASES_PATH = Path("evals/cases.jsonl")
@@ -126,6 +127,13 @@ def check_repository(root: Path) -> list[str]:
     for phrase in ("每一則回覆", "台灣繁體中文", "agent 能完成的工作"):
         if phrase not in description:
             errors.append(f"{SKILL_PATH}: description missing always-on signal: {phrase}")
+    if frontmatter.get("license") != "MIT":
+        errors.append(f"{SKILL_PATH}: license must be MIT")
+
+    skill_text = (root / SKILL_PATH).read_text(encoding="utf-8")
+    for phrase in ("最少步驟", "一次只維持一個 `in_progress`", "慣用語與比喻"):
+        if phrase not in skill_text:
+            errors.append(f"{SKILL_PATH}: missing upstream behavior: {phrase}")
 
     agents = load_json(root / ".agents/plugins/marketplace.json", errors)
     if agents.get("name") != MARKETPLACE_NAME:
@@ -139,6 +147,8 @@ def check_repository(root: Path) -> list[str]:
             errors.append(".agents plugin must resolve from its marketplace subdirectory")
 
     claude_market = load_json(root / ".claude-plugin/marketplace.json", errors)
+    if claude_market.get("$schema") != CLAUDE_MARKETPLACE_SCHEMA:
+        errors.append("Claude marketplace schema URL mismatch")
     if claude_market.get("name") != MARKETPLACE_NAME:
         errors.append("Claude marketplace name mismatch")
     claude_plugins = claude_market.get("plugins", [])
