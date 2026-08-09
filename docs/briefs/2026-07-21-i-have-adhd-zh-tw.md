@@ -14,7 +14,7 @@ Claude Code、Codex 與 Cursor 常用空泛開場、翻譯腔、中國用語、�
 
 ### Add: direct localization
 
-保留上游 plugin structure，改寫全部 identity、規則與公開文件。
+保留上游可辨識的 Skill 規則結構，改寫 identity、規則與公開文件。
 
 ### Add: native zh-TW rules plus regression cases
 
@@ -26,7 +26,7 @@ Claude Code、Codex 與 Cursor 常用空泛開場、翻譯腔、中國用語、�
 
 ## Chosen approach
 
-合併前兩項：保留可辨識的上游結構，但以原生台灣繁中重寫核心規則；用小型 eval corpus 驗證實際目標。
+合併前兩項：以原生台灣繁中重寫核心規則，用小型 eval corpus 驗證實際目標，並以標準 `skills/<name>/SKILL.md` 搭配 `npx skills add` 發布。Host-specific plugin manifests 不納入維護範圍，避免無法由維護者直接驗證的相容性風險。
 
 Executable plan: `docs/plans/i-have-adhd-zh-tw.md`.
 
@@ -34,10 +34,10 @@ Executable plan: `docs/plans/i-have-adhd-zh-tw.md`.
 
 In:
 
-- `i-have-adhd-zh-tw` plugin and skill identity;
-- always-on implicit invocation metadata;
+- `i-have-adhd-zh-tw` Skill identity;
+- standard Agent Skill layout and `npx skills` installation;
+- always-on behavior through the Skill description and one-line host instruction;
 - natural Taiwan Traditional Chinese rules;
-- Claude Code, Codex, and Cursor install documentation;
 - evaluation cases, rubric, validator, tests, and read-only CI.
 
 Out:
@@ -45,14 +45,15 @@ Out:
 - Panda-specific instructions;
 - automatic upstream merges;
 - alias under `i-have-adhd`;
+- Claude, Codex or other host-specific plugin packaging;
 - paid or provider-coupled live evaluation runner.
 
 ## Seams
 
-- Plugin manifests and skill directory naming.
-- Skill frontmatter and implicit invocation policy.
+- Standard Skill directory naming and frontmatter.
+- `npx skills` discovery.
 - Repository validator and CI.
-- Representative Claude Code and Codex smoke responses.
+- Representative cross-agent smoke responses.
 
 ## Next skill
 

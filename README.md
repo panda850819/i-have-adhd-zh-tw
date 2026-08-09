@@ -7,7 +7,7 @@
 
 # i-have-adhd-zh-tw
 
-給 Claude Code、Codex 與 Cursor 使用的公開 skill。它預設以台灣繁體中文回覆，減少空泛開場、晶晶體、中國用語、重複摘要與不必要的客套結尾，同時保留正確性、安全性、必要細節與 agent autonomy。
+給 AI coding agent 使用的公開 Skill。它預設以台灣繁體中文回覆，減少空泛開場、晶晶體、中國用語、重複摘要與不必要的客套結尾，同時保留正確性、安全性、必要細節與 agent autonomy。
 
 這個 skill 適合希望資訊容易開始、快速掃讀、可以直接行動的人；使用它不代表，也不能證明任何人有 ADHD。
 
@@ -21,21 +21,11 @@
 
 ## 安裝
 
-### Claude Code
-
 ```bash
-claude plugin marketplace add panda850819/i-have-adhd-zh-tw
-claude plugin install i-have-adhd-zh-tw@panda850819
+npx skills add panda850819/i-have-adhd-zh-tw
 ```
 
-### Codex
-
-```bash
-codex plugin marketplace add panda850819/i-have-adhd-zh-tw --ref main
-codex plugin add i-have-adhd-zh-tw@panda850819
-```
-
-詳細安裝、更新與移除方式見 [INSTALL.md](./INSTALL.md)。
+這是標準 Agent Skill，不需要安裝 host-specific plugin。詳細安裝、持續套用、更新與移除方式見 [INSTALL.md](./INSTALL.md)。
 
 ## 它會改變什麼
 
@@ -72,7 +62,7 @@ codex plugin add i-have-adhd-zh-tw@panda850819
 4. Agent 能安全完成的工作直接完成，不丟回給使用者。
 5. 簡短不犧牲必要細節、安全、rollback 或明確 output contract。
 
-完整規則見 [SKILL.md](./plugins/i-have-adhd-zh-tw/skills/i-have-adhd-zh-tw/SKILL.md)。
+完整規則見 [SKILL.md](./skills/i-have-adhd-zh-tw/SKILL.md)。你也可以用這個 Skill 集中管理回覆規則，讓各 repo 的 `AGENTS.md` 只保留一行啟用指令；詳見 [用 Skill 簡化 AGENTS.md](./INSTALL.md#用-skill-簡化-agentsmd)。
 
 ## 驗證
 
