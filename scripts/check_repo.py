@@ -25,8 +25,10 @@ REQUIRED_FILES = (
     Path(".github/workflows/validate.yml"),
 )
 FORBIDDEN_PLUGIN_PATHS = (
-    Path(".agents/plugins/marketplace.json"),
+    Path(".agents/plugins"),
     Path(".claude-plugin"),
+    Path(".codex-plugin"),
+    Path(".cursor"),
     Path("plugins/i-have-adhd-zh-tw"),
 )
 

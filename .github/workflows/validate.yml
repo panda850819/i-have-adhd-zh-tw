@@ -25,8 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Discover Skill with skills CLI
         run: |
+          set -euo pipefail
           npx --yes skills add . --list | tee skills-list.txt
           grep -q "i-have-adhd-zh-tw" skills-list.txt || {
             echo "::error::skills CLI did not discover i-have-adhd-zh-tw"

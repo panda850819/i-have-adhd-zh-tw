@@ -10,7 +10,7 @@ brief: docs/briefs/2026-07-21-i-have-adhd-zh-tw.md
 ### T1: Establish independent Skill identity
 
 - scope: standard Skill directory and inherited workflows
-- acceptance: `test -f skills/i-have-adhd-zh-tw/SKILL.md && test ! -e .claude-plugin && test ! -e plugins/i-have-adhd-zh-tw`
+- acceptance: `test -f skills/i-have-adhd-zh-tw/SKILL.md && python3 scripts/check_repo.py`
 - depends-on: none
 - status: done
 
