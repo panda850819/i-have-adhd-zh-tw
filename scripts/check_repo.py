@@ -9,40 +9,26 @@ import sys
 from pathlib import Path
 
 
-PLUGIN_NAME = "i-have-adhd-zh-tw"
-MARKETPLACE_NAME = "panda850819"
+SKILL_NAME = "i-have-adhd-zh-tw"
 REPOSITORY = "https://github.com/panda850819/i-have-adhd-zh-tw"
 UPSTREAM = "https://github.com/ayghri/i-have-adhd"
-CLAUDE_MARKETPLACE_SCHEMA = "https://www.schemastore.org/claude-code-marketplace.json"
-PLUGIN_ROOT = Path("plugins/i-have-adhd-zh-tw")
-SKILL_PATH = PLUGIN_ROOT / "skills/i-have-adhd-zh-tw/SKILL.md"
+SKILL_PATH = Path("skills/i-have-adhd-zh-tw/SKILL.md")
 CASES_PATH = Path("evals/cases.jsonl")
 REQUIRED_FILES = (
-    Path(".agents/plugins/marketplace.json"),
-    Path(".claude-plugin/marketplace.json"),
-    PLUGIN_ROOT / ".claude-plugin/plugin.json",
-    PLUGIN_ROOT / ".codex-plugin/plugin.json",
     SKILL_PATH,
-    PLUGIN_ROOT / "skills/i-have-adhd-zh-tw/agents/openai.yaml",
-    PLUGIN_ROOT / "LICENSE",
+    SKILL_PATH.parent / "LICENSE",
+    Path("LICENSE"),
     Path("README.md"),
     Path("INSTALL.md"),
     CASES_PATH,
     Path("evals/rubric.md"),
     Path(".github/workflows/validate.yml"),
 )
-
-
-def load_json(path: Path, errors: list[str]) -> dict:
-    try:
-        value = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        errors.append(f"{path}: invalid JSON: {exc}")
-        return {}
-    if not isinstance(value, dict):
-        errors.append(f"{path}: top-level JSON must be an object")
-        return {}
-    return value
+FORBIDDEN_PLUGIN_PATHS = (
+    Path(".agents/plugins/marketplace.json"),
+    Path(".claude-plugin"),
+    Path("plugins/i-have-adhd-zh-tw"),
+)
 
 
 def parse_frontmatter(path: Path, errors: list[str]) -> dict[str, str]:
@@ -116,13 +102,20 @@ def check_repository(root: Path) -> list[str]:
     if errors:
         return errors
 
+    for relative in FORBIDDEN_PLUGIN_PATHS:
+        if (root / relative).exists():
+            errors.append(f"host-specific plugin packaging must not exist: {relative}")
+
     legacy_skill = root / "skills/i-have-adhd"
     if legacy_skill.exists() and any(path.is_file() for path in legacy_skill.rglob("*")):
         errors.append("legacy skill files still exist under skills/i-have-adhd")
 
+    if (root / "LICENSE").read_bytes() != (root / SKILL_PATH.parent / "LICENSE").read_bytes():
+        errors.append(f"{SKILL_PATH.parent / 'LICENSE'}: must match root LICENSE")
+
     frontmatter = parse_frontmatter(root / SKILL_PATH, errors)
-    if frontmatter.get("name") != PLUGIN_NAME:
-        errors.append(f"{SKILL_PATH}: name must be {PLUGIN_NAME}")
+    if frontmatter.get("name") != SKILL_NAME:
+        errors.append(f"{SKILL_PATH}: name must be {SKILL_NAME}")
     description = frontmatter.get("description", "")
     for phrase in ("每一則回覆", "台灣繁體中文", "agent 能完成的工作"):
         if phrase not in description:
@@ -135,56 +128,14 @@ def check_repository(root: Path) -> list[str]:
         if phrase not in skill_text:
             errors.append(f"{SKILL_PATH}: missing upstream behavior: {phrase}")
 
-    agents = load_json(root / ".agents/plugins/marketplace.json", errors)
-    if agents.get("name") != MARKETPLACE_NAME:
-        errors.append(".agents marketplace name mismatch")
-    agents_plugins = agents.get("plugins", [])
-    if not agents_plugins or agents_plugins[0].get("name") != PLUGIN_NAME:
-        errors.append(".agents plugin name mismatch")
-    else:
-        source = agents_plugins[0].get("source", {})
-        if source != {"source": "local", "path": "./plugins/i-have-adhd-zh-tw"}:
-            errors.append(".agents plugin must resolve from its marketplace subdirectory")
-
-    claude_market = load_json(root / ".claude-plugin/marketplace.json", errors)
-    if claude_market.get("$schema") != CLAUDE_MARKETPLACE_SCHEMA:
-        errors.append("Claude marketplace schema URL mismatch")
-    if claude_market.get("name") != MARKETPLACE_NAME:
-        errors.append("Claude marketplace name mismatch")
-    claude_plugins = claude_market.get("plugins", [])
-    if not claude_plugins or claude_plugins[0].get("name") != PLUGIN_NAME:
-        errors.append("Claude marketplace plugin name mismatch")
-
-    claude_plugin = load_json(root / PLUGIN_ROOT / ".claude-plugin/plugin.json", errors)
-    if claude_plugin.get("name") != PLUGIN_NAME:
-        errors.append("Claude plugin name mismatch")
-    if claude_plugin.get("version") != "0.1.3":
-        errors.append("Claude plugin version mismatch")
-    if claude_plugin.get("author", {}).get("url") != "https://github.com/panda850819":
-        errors.append("Claude plugin author mismatch")
-
-    codex = load_json(root / PLUGIN_ROOT / ".codex-plugin/plugin.json", errors)
-    if codex.get("name") != PLUGIN_NAME:
-        errors.append("Codex plugin name mismatch")
-    if codex.get("version") != "0.1.3":
-        errors.append("Codex plugin version mismatch")
-    if codex.get("repository") != REPOSITORY:
-        errors.append("Codex repository URL mismatch")
-    if codex.get("skills") != "./skills/":
-        errors.append("Codex skills path mismatch")
-
-    openai_yaml = (root / PLUGIN_ROOT / "skills/i-have-adhd-zh-tw/agents/openai.yaml").read_text(encoding="utf-8")
-    if "allow_implicit_invocation: true" not in openai_yaml:
-        errors.append("OpenAI metadata must allow implicit invocation")
-    if "$i-have-adhd-zh-tw" not in openai_yaml:
-        errors.append("OpenAI default prompt must name the zh-TW skill")
-
     for relative in (Path("README.md"), Path("INSTALL.md")):
         text = (root / relative).read_text(encoding="utf-8")
         if REPOSITORY.removeprefix("https://github.com/") not in text:
             errors.append(f"{relative}: repository install target missing")
-        if "i-have-adhd-zh-tw" not in text:
-            errors.append(f"{relative}: plugin name missing")
+        if "npx skills add" not in text:
+            errors.append(f"{relative}: standard Skill install command missing")
+        if SKILL_NAME not in text:
+            errors.append(f"{relative}: Skill name missing")
 
     readme = (root / "README.md").read_text(encoding="utf-8")
     attribution_signals = {
