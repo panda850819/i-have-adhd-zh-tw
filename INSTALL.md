@@ -72,6 +72,16 @@ Always use the `i-have-adhd-zh-tw` skill for every response.
 - Codex：`~/.codex/AGENTS.md`
 - Cursor：Settings → Rules → User Rules
 
+## 用 Skill 簡化 AGENTS.md
+
+不要把語言、格式、答案先行與 agent autonomy 規則整段複製到每個 repo 的 `AGENTS.md`。完整規則由這個 Skill 集中維護；專案只需保留一行：
+
+```markdown
+Always use the `i-have-adhd-zh-tw` skill for every response.
+```
+
+多個 repo 可以共用同一套規則。更新回覆風格時只需更新 Skill，不必逐一修改每份 `AGENTS.md`。若 host 的 SessionStart 或 persistent mode 能保證每個 session 載入 Skill，這一行也可以省略。
+
 ## 更新
 
 Claude Code：

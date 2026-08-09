@@ -72,7 +72,7 @@ codex plugin add i-have-adhd-zh-tw@panda850819
 4. Agent 能安全完成的工作直接完成，不丟回給使用者。
 5. 簡短不犧牲必要細節、安全、rollback 或明確 output contract。
 
-完整規則見 [SKILL.md](./plugins/i-have-adhd-zh-tw/skills/i-have-adhd-zh-tw/SKILL.md)。
+完整規則見 [SKILL.md](./plugins/i-have-adhd-zh-tw/skills/i-have-adhd-zh-tw/SKILL.md)。你也可以用這個 Skill 集中管理回覆規則，讓各 repo 的 `AGENTS.md` 只保留一行啟用指令；詳見 [用 Skill 簡化 AGENTS.md](./INSTALL.md#用-skill-簡化-agentsmd)。
 
 ## 驗證
 
