@@ -126,9 +126,21 @@ def check_repository(root: Path) -> list[str]:
         errors.append(f"{SKILL_PATH}: license must be MIT")
 
     skill_text = (root / SKILL_PATH).read_text(encoding="utf-8")
-    for phrase in ("最少步驟", "一次只維持一個 `in_progress`", "慣用語與比喻"):
+    for phrase in (
+        "最少步驟",
+        "一次只維持一個 `in_progress`",
+        "慣用語與比喻",
+        "每一組以不超過 5 項為目標",
+        "不得因此減少分析、搜尋",
+    ):
         if phrase not in skill_text:
             errors.append(f"{SKILL_PATH}: missing upstream behavior: {phrase}")
+    for phrase in (
+        "如何跟 Grok Bot／Claude 協作",
+        "對人講話禁用董事會黑話",
+    ):
+        if phrase not in skill_text:
+            errors.append(f"{SKILL_PATH}: missing collaboration guidance: {phrase}")
 
     for relative in (Path("README.md"), Path("INSTALL.md")):
         text = (root / relative).read_text(encoding="utf-8")
