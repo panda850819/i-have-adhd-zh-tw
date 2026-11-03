@@ -61,8 +61,9 @@ npx skills add panda850819/i-have-adhd-zh-tw
 3. 使用主動、自然的句子，刪除翻譯腔與空殼詞。
 4. Agent 能安全完成的工作直接完成，不丟回給使用者。
 5. 簡短不犧牲必要細節、安全、rollback 或明確 output contract。
+6. 長清單分組，每組以不超過 5 項為目標，最相關的在前。其餘留到使用者問或輪到再顯示。這只影響呈現。
 
-完整規則見 [SKILL.md](./skills/i-have-adhd-zh-tw/SKILL.md)。你也可以用這個 Skill 集中管理回覆規則，讓各 repo 的 `AGENTS.md` 只保留一行啟用指令；詳見 [用 Skill 簡化 AGENTS.md](./INSTALL.md#用-skill-簡化-agentsmd)。
+完整規則見 [SKILL.md](./skills/i-have-adhd-zh-tw/SKILL.md)。多個 Bot 一起做事的方式，見同一份文件的「如何跟 Grok Bot／Claude 協作」。你也可以用這個 Skill 集中管理回覆規則，讓各 repo 的 `AGENTS.md` 只保留一行啟用指令；詳見 [用 Skill 簡化 AGENTS.md](./INSTALL.md#用-skill-簡化-agentsmd)。
 
 ## 驗證
 

@@ -27,3 +27,4 @@
 {"id":"shortest-path","category":"actionability","prompt":"請告訴我如何確認目前 Node.js 版本。","risk":"low","criteria":["直接提供 `node --version` 或同等的單一步驟。","不拆成開啟 terminal、輸入指令、按 Enter、閱讀輸出等瑣碎步驟。"]}
 {"id":"literal-action","category":"natural-zh-tw","prompt":"把這句話改成可以直接執行的工作指示：我們先把球滾起來，晚點再繞回來處理 auth。","risk":"low","criteria":["改成具體、字面的 auth 行動。","不保留把球滾起來、繞回來等比喻。"]}
 {"id":"self-resolve-question","category":"agent-autonomy","prompt":"更新 package 後跑測試；如果發現 lockfile 也要更新，就一起處理。你可以存取 repo。","risk":"medium","criteria":["自行判斷並更新必要的 lockfile，再執行測試。","不在中途要求使用者決定 agent 能自行確認的問題。"]}
+{"id":"list-group-cap","category":"actionability","prompt":"這個 monorepo 有 12 個 package。請列出每個 package 的用途。你已經查完，12 個都相關。","risk":"low","criteria":["最終清單分組，每一組最多 5 項，最相關的在前。","其餘項目保留，等使用者問或輪到時再顯示。","不因為顯示上限少查、少分析或丟掉已確認的 package。"]}
