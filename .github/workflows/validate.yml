@@ -10,7 +10,8 @@ permissions:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ${{ (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository) && 'ubuntu-latest' || fromJSON('["self-hosted","lab","public-isolated"]') }}
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,11 +23,16 @@ jobs:
         run: python3 -m unittest discover -s tests -v
 
   skill-discovery:
-    runs-on: ubuntu-latest
+    runs-on: ${{ (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository) && 'ubuntu-latest' || fromJSON('["self-hosted","lab","public-isolated"]') }}
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      # skills CLI needs Node >= 22.20; the lab host ships Node 18.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Discover Skill with skills CLI
         run: |
           set -euo pipefail
