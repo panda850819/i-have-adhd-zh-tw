@@ -1,0 +1,11 @@
+name: Pinned lab Python
+description: Guard the preinstalled Python pinned in .python-version and put it first on PATH. Never downloads.
+runs:
+  using: composite
+  steps:
+    - name: Guard pinned Python (version, build, libpython)
+      shell: bash
+      run: bash "$GITHUB_WORKSPACE/scripts/ci-python-guard.sh" --github-path
+    - name: python3 on PATH is the pinned Python
+      shell: bash
+      run: bash "$GITHUB_WORKSPACE/scripts/ci-python-guard.sh" --check-path

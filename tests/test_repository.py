@@ -18,6 +18,21 @@ class RepositoryTests(unittest.TestCase):
     def test_repository_contracts(self):
         self.assertEqual([], check_repo.check_repository(ROOT))
 
+    def test_literal_python_version_in_workflow_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / ".github/workflows").mkdir(parents=True)
+            (root / ".python-version").write_text("3.12\n", encoding="utf-8")
+            (root / ".github/workflows/validate.yml").write_text(
+                "      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n",
+                encoding="utf-8",
+            )
+            errors: list[str] = []
+            check_repo.check_ci_python(root, errors)
+        self.assertTrue(any(".python-version: must hold" in error for error in errors))
+        self.assertTrue(any("not python-version:" in error for error in errors))
+        self.assertTrue(any("ci-python" in error for error in errors))
+
     def test_duplicate_case_ids_are_rejected(self):
         row = {
             "id": "duplicate",

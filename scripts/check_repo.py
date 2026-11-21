@@ -23,6 +23,10 @@ REQUIRED_FILES = (
     CASES_PATH,
     Path("evals/rubric.md"),
     Path(".github/workflows/validate.yml"),
+    Path(".python-version"),
+    Path("config/ci-python.lock"),
+    Path("scripts/ci-python-guard.sh"),
+    Path(".github/actions/ci-python/action.yml"),
 )
 FORBIDDEN_PLUGIN_PATHS = (
     Path(".agents/plugins"),
@@ -93,6 +97,18 @@ def check_local_links(root: Path, path: Path, errors: list[str]) -> None:
         resolved = (root / path.parent / target).resolve()
         if not resolved.exists():
             errors.append(f"{path}: local link target does not exist: {target}")
+
+
+def check_ci_python(root: Path, errors: list[str]) -> None:
+    pin = (root / ".python-version").read_text(encoding="utf-8").strip()
+    if not re.fullmatch(r"\d+\.\d+\.\d+", pin):
+        errors.append(f".python-version: must hold an exact X.Y.Z version, got {pin!r}")
+    workflow = (root / ".github/workflows/validate.yml").read_text(encoding="utf-8")
+    if re.search(r"^\s*python-version\s*:", workflow, re.MULTILINE):
+        errors.append("validate.yml: Python version must come from .python-version, not python-version:")
+    for needle in ("python-version-file: .python-version", "uses: ./.github/actions/ci-python"):
+        if needle not in workflow:
+            errors.append(f"validate.yml: missing {needle}")
 
 
 def check_repository(root: Path) -> list[str]:
@@ -166,6 +182,8 @@ def check_repository(root: Path) -> list[str]:
     for relative in root.rglob("*.md"):
         if ".git" not in relative.parts:
             check_local_links(root, relative.relative_to(root), errors)
+
+    check_ci_python(root, errors)
 
     cases, case_errors = load_cases(root / CASES_PATH)
     errors.extend(case_errors)
