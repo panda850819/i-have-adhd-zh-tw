@@ -106,7 +106,12 @@ def check_ci_python(root: Path, errors: list[str]) -> None:
     workflow = (root / ".github/workflows/validate.yml").read_text(encoding="utf-8")
     if re.search(r"^\s*python-version\s*:", workflow, re.MULTILINE):
         errors.append("validate.yml: Python version must come from .python-version, not python-version:")
-    for needle in ("python-version-file: .python-version", "uses: ./.github/actions/ci-python"):
+    for needle in (
+        "if: runner.environment == 'github-hosted'",
+        "python-version-file: .python-version",
+        "if: runner.environment != 'github-hosted'",
+        "uses: ./.github/actions/ci-python",
+    ):
         if needle not in workflow:
             errors.append(f"validate.yml: missing {needle}")
 

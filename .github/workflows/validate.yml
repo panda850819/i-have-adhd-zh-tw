@@ -14,6 +14,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       # GitHub-hosted (fork PRs): setup-python, same version as the lab pin.
       - if: runner.environment == 'github-hosted'
         uses: actions/setup-python@v5
