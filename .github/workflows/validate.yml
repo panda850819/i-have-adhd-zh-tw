@@ -14,9 +14,16 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          persist-credentials: false
+      # GitHub-hosted (fork PRs): setup-python, same version as the lab pin.
+      - if: runner.environment == 'github-hosted'
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+      # Lab: preinstalled pinned Python, red unless version and libpython match. Never downloads.
+      - if: runner.environment != 'github-hosted'
+        uses: ./.github/actions/ci-python
       - name: Check repository contracts
         run: python3 scripts/check_repo.py
       - name: Run tests
